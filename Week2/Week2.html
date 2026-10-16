@@ -9,6 +9,10 @@
                 font-family: digital;
                 src: url(fonts/DS-DIGIT.TTF);
             }
+            @font-face {
+                font-family: slime;
+                src: url(fonts/Slimespooky.ttf);
+            }
             body{
                 background-color: cornflowerblue;
             }
@@ -24,6 +28,20 @@
                 width: 100px;
                 margin-left: auto;
                 margin-right: auto;
+                border: 10px inset gray;
+            }
+            h1, h2{
+                font-family: "slime";
+                font-weight: normal;
+                color: #ffaa00;
+            }
+
+            #btn:hover{
+                transform: scale(1.05);
+
+            }
+            #btn:active{
+                transform: scale(0.9);
             }
         </style>
     </head>
@@ -35,7 +53,11 @@
             <br>
             <h2>Button Clicker</h2>
             <h3 id="output">0</h3>
-            <input type="button" value="Click Me!!" id="btn">
+            <button type="button" id="btn" style="background: none; border: none;">
+                <img src="images/buttonclicker.png" alt="Button Image" width="100">
+            </button>
+            <br>
+            <!-- <input type="button" value="Click Me!!" id="btn"> -->
             <input type="button" value="Clear Clicks" id="btn-reset">
         </div>
         
@@ -59,12 +81,15 @@
             var clickerButton = document.querySelector("#btn");
             var clearButton = document.querySelector("#btn-reset");
             var clickerOutput = document.querySelector("#output");
+            var clickerSound = new Audio("audio/button-1.mp3");
 
             var numberOfClicks = 0;
 
             clickerButton.addEventListener("click", function(){
                 numberOfClicks++;
                 updateClickerDisplay();
+                clickerSound.currentTime = 0;
+                clickerSound.play();
 
                 if(numberOfClicks == 25){
                     alert("You made 25 clicks!");
