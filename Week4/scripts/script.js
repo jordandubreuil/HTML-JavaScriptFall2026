@@ -41,7 +41,9 @@ for(var i = 0; i < starCount; i++){
     stars[i] = createStar();
     stars[i].x = Math.random() * canvas.width;
     stars[i].y = Math.random() * canvas.height;
-    stars[i].radius = Math.random() * 25;
+    stars[i].radius = Math.random() * 5;
+    //stars[i].color = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+    stars[i].color = "white";
 
 }
 
@@ -87,6 +89,8 @@ document.addEventListener("keyup", function(e){
     }
 });
 
+
+
 //This is our Game Loop Function
 function game(){
     //clear the screen
@@ -130,12 +134,20 @@ function game(){
         moveDirection.x *= -1;
         boxColor = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
     }
-
+    //Draws Background
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    //Draws Stars
     for(var i = 0; i < stars.length; i++){
         //draw all the stars
         stars[i].drawCircle();
+        stars[i].y++;
+        if(stars[i].y > canvas.height + stars[i].radius *2){
+            stars[i].x = Math.random() * canvas.width;
+            stars[i].y = -(Math.random() * canvas.height);
+        }
     }
-
+    //Draws Ship and box
     ctx.fillStyle = boxColor;
     ctx.fillRect(startPoint.x, startPoint.y, 25,25);
     ctx.drawImage(shipSprite.image, shipSprite.x, shipSprite.y, 25,25);
